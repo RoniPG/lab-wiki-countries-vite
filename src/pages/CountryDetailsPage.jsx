@@ -1,7 +1,21 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+const BASE_URL = "https://ih-countries-api.herokuapp.com";
+
 function CountryDetails() {
+    const [country, setCountry] = useState([]);
     const { countryId } = useParams();
+
+    useEffect(() => {
+        axios
+            .get(`${BASE_URL}/countries/${countryId}`)
+            .then((response) => {
+                const countryData = response.data;
+                setCountry(countryData);
+            })
+    }, [countryId]);
 
     return (
         <div className="container">
