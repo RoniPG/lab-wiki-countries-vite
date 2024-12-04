@@ -1,4 +1,8 @@
+import { useParams } from "react-router-dom";
+
 function CountryDetails() {
+    const { countryId } = useParams();
+
     return (
         <div className="container">
             <p style={{ fontSize: "24px", fontWeight: "bold" }}>Country Details</p>
