@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const BASE_URL = "https://ih-countries-api.herokuapp.com";
 
@@ -23,25 +23,35 @@ function CountryDetails() {
             {country === undefined || country === null
                 ? <p>Loading...</p>
                 : <>
-                    <img src="" alt="flag-of-country" />
-                    <h1>COUNTRY NAME</h1>
+                    <img
+                        src={`https://flagpedia.net/data/flags/icon/72x54/${country.alpha2Code.toLowerCase()}.png`}
+                        alt={country.name.common}
+                    />
+                    <h1>{country.name.common}</h1>
                     <table className="table">
                         <thead></thead>
                         <tbody>
                             <tr>
                                 <td style={{ width: "30%" }}>Capital</td>
-                                <td>CAPITAL</td>
+                                <td>{country.capital}</td>
                             </tr>
                             <tr>
                                 <td>Area</td>
-                                <td>AREA <sup>2</sup></td>
+                                <td>{country.area} km<sup>2</sup></td>
                             </tr>
                             <tr>
                                 <td>Borders</td>
                                 <td>
                                     <ul>
-                                        <li><a href="#">COUNTRY 1</a></li>
-                                        <li><a href="#">COUNTRY 2</a></li>
+                                        {country.borders.map((border, index) => (
+                                            <div key={index}>
+                                                <Link
+                                                    to={`/${border}`}
+                                                >
+                                                    {border}
+                                                </Link>
+                                            </div>
+                                        ))}
                                     </ul>
                                 </td>
                             </tr>
